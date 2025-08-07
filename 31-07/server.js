@@ -70,16 +70,24 @@ app.get('/usuarios/:id', (req, res) => {
 
 
 app.put('/usuarios/:id', (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     const { nome, email, senha } = req.body;
     const sql = 'UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?';
-    connection.query(sql, [nome, email, senha, id],(error) => {
+    connection.query(sql, [nome, email, senha, id], (error) => {
         if (error) return res.status(500).send('Erro ao atualizar tabela' + error.message);
         res.json();
-    } )
+    })
 
 })
 
+
+app.delete('/usuario/:id', (req, res) => {
+    const { id } = req.params;
+    connection.query('DELETE * FROM usuarios WHERE id = ?', [id], (error) => {
+        if (error) return res.status(500).send('Erro ao deletar usuário.');
+        res.send('Usuário deletado com sucesso.');
+    })
+})
 
 const PORT = 3000;
 app.listen(PORT, () => {
