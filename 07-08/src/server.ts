@@ -48,7 +48,7 @@ app.get('/sobre', (req: Request, res: Response): Response => {
 });
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//3️⃣ Crie uma rota POST /comentariosque recebe um JSON com "texto".
+//3️⃣ Crie uma rota POST /comentarios que recebe um JSON com "texto".
 
 // Essa rota recebe comentários enviados por alguém usando o método POST.
 // O caminho da rota é /comentarios.
