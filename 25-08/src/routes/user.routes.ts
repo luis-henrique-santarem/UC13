@@ -20,9 +20,9 @@ router.get('/', controller.list.bind(controller))
 // Le as infos
 router.get('/me', authMiddleware, controller.getById.bind(controller))
 // Atualiza as infos
-router.get('/me', authMiddleware, controller.update.bind(controller))
+router.put('/me', authMiddleware, controller.update.bind(controller))
 // Remove
-router.get('/me', authMiddleware, controller.remove.bind(controller))
+router.delete('/me', authMiddleware, controller.remove.bind(controller))
 
 // CREATE: permite cadastro de novo usuário (não precisa estar logado)
 router.post('/', controller.create.bind(controller))

@@ -5,14 +5,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-  "start": "tsc && node dist/index.js",
-  "dev": "npx ts-node-dev src/server.ts"
+    "start": "tsc && node dist/index.js",
+    "dev": "npx ts-node-dev src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/cors": "^2.8.19",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
