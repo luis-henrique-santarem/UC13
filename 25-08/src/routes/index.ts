@@ -1,7 +1,7 @@
 // src/routes/index.ts
 import { Router } from 'express'
-import authRoutes from '../../../25-08/src/routes/auth.routes'
-import userRoutes from './user.routes'
+import authRoutes from '../routes/auth.routes'
+import userRoutes from '../routes/user.routes'
 
 const router = Router()
 
