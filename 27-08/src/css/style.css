@@ -26,7 +26,6 @@ body {
 .auth-section {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   padding: 32px;
   border-radius: 16px;
   width: 100%;
