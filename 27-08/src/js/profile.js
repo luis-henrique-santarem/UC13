@@ -34,60 +34,80 @@ async function carregarPerfil() {
             "Erro ao carregar perfil: " + erro.message;
         document.getElementById("mensagem").style.color = "red";
     }
-}
+    const btnAtualiazar = document.getElementById("btnAtualizar")
+    const btnDeletar = document.getElementById("btnDeletar")
 
-async function atualizarPerfil() {
- 
 
+
+   btnAtualiazar.addEventListener("click", async () => {
+    try {
+
+        const name = document.getElementById("nome").value.trim();
+         const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("senha").value;
+
+          const dadosParaAtualizar = {};
+        if (name) {
+            dadosParaAtualizar.name = name;
+        }
+        if (email) {
+            dadosParaAtualizar.email = email;
+        }
+        if (password) {
+            dadosParaAtualizar.password = password;
+        }
+
+        if (!dadosParaAtualizar.name && !dadosParaAtualizar.email && !dadosParaAtualizar.password) {
+            document.getElementById("mensagem").textContent = "Nenhum campo para atualizar!";
+             document.getElementById("mensagem").style.color = "red";
+             return;
+        }
+        const resposta = await fetch ("http://localhost:3000/users/me", {
+            method: "PUT",
+            headers: {
+                   "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify(dadosParaAtualizar)
+        })
+
+        if(!resposta.ok) {
+            const erro = await resposta.text();
+            throw new Error(erro)
+        }
     
-
-
-
-
-
-
-
-
-
-
-}
-
-async function deletarPerfil() {
-     const token = localStorage.getItem("token");
-  if (!token) {
-    document.getElementById("mensagem").textContent = "Usuário não autenticado!";
-    document.getElementById("mensagem").style.color = "red";
-    return;
-  }
-
-  try {
-    const resposta = await fetch("http://localhost:3000/users/me", {
-      method: "DELETE",
-      headers: { "Authorization": "Bearer " + token}
-    });
-
-    if (!resposta.ok) {
-      const erro = await resposta.text();
-      throw new Error(erro);
+    }catch (erro) {
+        console.error("Erro:", erro);
+             document.getElementById("mensagem").textContent = "Atualizado";
+            document.getElementById("mensagem").style.color = "green";
     }
+   })
 
-    document.getElementById("mensagem").textContent = "Conta deletada com sucesso!";
-    document.getElementById("mensagem").style.color = "green";
+    btnDeletar.addEventListener("click", async () => {
+        try {
+            const resposta = await fetch("http://localhost:3000/users/me", {
+                method: "DELETE",   
+                headers: {
+                    "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+                }
+            });
+            if (!resposta.ok) {
+                const erro = await resposta.text();
+                throw new Error(erro);
+            }
+            document.getElementById("mensagem").textContent = "Usuário deletado!";
+            document.getElementById("mensagem").style.color = "green";
 
-   
-    localStorage.removeItem("token"); setTimeout(() => { window.location.href = "login.html"; }, 2000);
+            window.location.href = "login.html";
 
-  } catch (erro) {
-    console.error("Erro:", erro);
-    document.getElementById("mensagem").textContent = "Erro ao deletar: " + erro.message;
-    document.getElementById("mensagem").style.color = "red";
-  }
+        } catch (erro) {
+            console.error("Erro:", erro);
+             document.getElementById("mensagem").textContent = "Erro ao deletar usuário: " + erro.message;
+            document.getElementById("mensagem").style.color = "red";
+        }
+    })
 }
-
-
-
-document.getElementById("btnAtualizar").addEventListener("click", atualizarPerfil);
-document.getElementById("btnDeletar").addEventListener("click", deletarPerfil);
 
 // Carrega o perfil assim que a página é aberta
 window.addEventListener("DOMContentLoaded", carregarPerfil);

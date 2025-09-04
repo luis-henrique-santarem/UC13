@@ -1,7 +1,7 @@
 // src/app.ts
 import express from 'express'
 import { config } from 'dotenv'
-import routes from '../../25-08/src/routes'
+import routes from '../src/routes'
 import cors from "cors";
 
 config()

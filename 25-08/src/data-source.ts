@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import { config } from 'dotenv'
-import { User } from '../../25-08/src/entities/User'
+import { User } from '../src/entities/User'
 
 config() // carrega variáveis do .env
 
